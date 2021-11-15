@@ -1,0 +1,105 @@
+@extends('layouts.app')
+
+@section('title','Editar Finales')
+
+@section('content')
+<div class="container">
+	<h1>
+		Para editar un final actualice los datos que desee
+	</h1>
+	<form action="{{ route('actualizarFinal', $finales->id)  }}" method="POST">
+		@csrf
+		<div class="form-group col-md-6">
+		<label for="sedeId" class="form-label">Selecionar una sede</label>
+		{{-- Lista de todas las sedes --}}
+		<select name="sedeId" id="sedeId" class="form-control">
+			<option value="option">--seleccionar sede--</option>
+			@foreach($sedes as $listSede)
+				<option value="{{ $listSede->id }}" @if($listSede->id == $finales->SedeId) selected="selected" @endif>{{ $listSede->nombre_sede }}</option>
+			@endforeach
+		</select>
+		</div>
+		<div class="form-group col-md-6">
+		<label for="carreraId" class="form-label">Selecionar una carrera</label>
+		{{-- La lista de las carreras --}}
+		<select name="carreraId" id="carreraId" class="form-control">
+			<option value="option">--seleccionar carrera--</option>
+			@foreach($carreras as $listCar)
+				<option value="{{ $listCar->id }}" @if($listCar->id == $finales->MateriaId) selected="selected" @endif>{{ $listCar->nombre_carrera }}</option>
+			@endforeach
+		</select>
+		</div>
+		<div class="form-group col-md-6">
+		<label for="materiaId" class="form-label">Selecionar una materia</label>
+		{{-- Listado de las materias --}}
+		<select name="materiaId" id="materiaId" class="form-control">
+			<option value="option">--seleccionar materia--</option>
+			@foreach($materias as $listMat)
+				<option value="{{ $listMat->id }}" @if($listMat->id== $finales->MateriaId) selected="selected" @endif>{{ $listMat->nombre_materia }}</option>
+			@endforeach
+		</select>
+		</div>
+		<div class="form-group col-md-3">
+			<label for="anio" class="fom-label">Año de la materia</label>
+			<input type="text" name="anio" id="anio" class="form-control" placeholder="año" value="{{ $finales->Anio }}">
+		</div>
+		<div class="form-group col-md-6">
+		<label for="divisionId" class="form-label">Selecionar una divisón</label>
+		{{-- Livisión de la materia --}}
+		<select name="divisionId" id="divisionId" class="form-control">
+			<option value="option">--seleccionar división--</option>
+			@foreach($divisiones as $listD)
+				<option value="{{ $listD->id }}" @if($listD->id== $finales->DivisionId ) selected="selected" @endif>{{ $listD->division }}</option>
+			@endforeach
+		</select>
+		</div>
+		<div class="form-group col-md-6">
+		<label for="llamadoId" class="form-label">Selecionar llamado</label>
+		{{-- Listado del llamado --}}
+		<select name="llamadoId" id="llamadoId" class="form-control">
+			<option value="option">--seleccionar llamado--</option>
+			@foreach($llamados as $listCall)
+				<option value="{{ $listCall->id }}" @if($listCall->id == $finales->LlamadoId ) selected="selected" @endif>{{ $listCall->llamados }}</option>
+			@endforeach
+		</select>
+		</div>
+		<div class="form-group col-md-6">
+		<label for="profesorId" class="form-label">Selecionar profesor titular</label>
+		{{-- Este es el profesor titular --}}
+		<select name="profesorId" id="profesorId" class="form-control">
+			<option value="option">--seleccionar profesor--</option>
+			@foreach($profesores as $listProf)
+				<option value="{{ $listProf->id }}" @if($listProf->id == $finales->ProfesorId ) selected="selected" @endif>{{ $listProf->nombre_prof }} {{ $listProf->apellido_prof }}</option>
+			@endforeach
+		</select>
+		</div>
+		<div class="form-group col-md-6">
+		<label for="profesorVocal1" class="form-label">Selecionar profesor vocal</label>
+		{{-- Esste es el profesor vocal --}}
+		<select name="profesorVocal1" id="profesorVocal1" class="form-control">
+			<option value="option">--seleccionar profesor--</option>
+			@foreach($profesores as $listProfV)
+				<option value="{{ $listProfV->id }}"@if($listProfV->id == $finales->ProfesorVocalId ) selected="selected" @endif>{{ $listProfV->nombre_prof }} {{ $listProfV->apellido_prof }}</option>
+			@endforeach
+		</select>
+		</div>
+		<div class="form-group col-md-6">
+		<label for="profesorVocal2" class="form-label">Selecionar profesor optativo</label>
+		{{-- Este es el profesor Optativo --}}
+		<select name="profesorVocal2" id="profesorVocal2" class="form-control">
+			<option value="option">--seleccionar carrera--</option>
+			@foreach($profesores as $listProfO)
+				<option value="{{ $listProfO->id }}" @if($listProfO->id == $finales->ProfesorOptativoId ) selected="selected" @endif>{{ $listProfO->nombre_prof }} {{ $listProfO->apellido_prof }}</option>
+			@endforeach
+		</select>
+		</div>
+		<div class="form-group col-md-4">
+			<label for="fecha" class="form-label">Ingresar fecha para el examen</label>
+			<input type="date" class="form-control" min="11-11-2020" name="fecha" id="fecha" value="{{ $finales->Fecha }}">
+		</div>
+		<div class="form-group col-md-6 mt-4">
+			<button type="submit" name="submit" id="submit" class="btn btn-info">Actualizar</button>
+		</div>
+	</form>
+</div>
+@endsection
